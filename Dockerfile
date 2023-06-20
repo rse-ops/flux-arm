@@ -64,7 +64,8 @@ RUN apt-get update && \
         python3-yaml \
         python3-ply \
         python3-six \
-        python3-setuptools \
+        python3-jsonschema \
+	python3-setuptools \
         python3-wheel && \
     rm -rf /var/lib/apt/lists/*
 

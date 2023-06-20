@@ -13,8 +13,8 @@ RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
         locales \
         ca-certificates \
-	crossbuild-essential-armhf \
-        wget \
+        gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu \
+	wget \
         man \
         git \
         flex \

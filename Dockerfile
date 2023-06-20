@@ -1,4 +1,4 @@
-ARG tag=latest
+ARG tag=bionic
 FROM ubuntu:${tag}
 
 # This first section from src/test/docker/bionic/Dockerfile in flux-core

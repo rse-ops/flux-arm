@@ -59,6 +59,7 @@ RUN apt-get update && \
         python3.7-dev \
         python3.8-dev \
         python3-pip \
+        python3-cffi \
         python3-setuptools \
         python3-wheel && \
     rm -rf /var/lib/apt/lists/*

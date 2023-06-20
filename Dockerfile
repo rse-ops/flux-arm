@@ -59,7 +59,11 @@ RUN apt-get update && \
         python3.7-dev \
         python3.8-dev \
         python3-pip \
+        # These are needed for detection by system Python
         python3-cffi \
+        python3-yaml \
+        python3-ply \
+        python3-six \
         python3-setuptools \
         python3-wheel && \
     rm -rf /var/lib/apt/lists/*

@@ -150,7 +150,7 @@ ENV LANG=C.UTF-8
 ARG USER=fluxuser
 ARG UID=1000
 ARG GID=1000
-ARG FLUX_SECURITY_VERSION=0.8.0
+ARG FLUX_SECURITY_VERSION=0.9.0
 
 # Install flux-security by hand for now:
 #

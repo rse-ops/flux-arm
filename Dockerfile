@@ -1,5 +1,5 @@
-ARG tag=bionic
-FROM ubuntu:${tag}
+ARG tag=latest
+FROM arm64v8/ubuntu:${tag}
 
 # This first section from src/test/docker/bionic/Dockerfile in flux-core
 # https://github.com/flux-framework/flux-core/blob/master/src/test/docker/bionic/Dockerfile

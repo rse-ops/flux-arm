@@ -162,12 +162,11 @@ RUN CCACHE_DISABLE=1 && \
     wget ${URL}/v${V}/${PKG}.tar.gz && \
     tar xvfz ${PKG}.tar.gz && \
     cd ${PKG} && \
-    ./configure --prefix=/usr --sysconfdir=/etc || cat config.log && \
+    ./configure --prefix=/usr --sysconfdir=/etc && \
     make -j 4 && \
-    make install && \
+    sudo make install && \
     cd .. && \
-    rm -rf flux-security-*
-
+    ldconfig
 
 # Add configured user to image with sudo access:
 #

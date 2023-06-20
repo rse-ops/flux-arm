@@ -13,7 +13,6 @@ RUN apt-get update && \
     apt-get -qq install -y --no-install-recommends \
         locales \
         ca-certificates \
-        gcc-aarch64-linux-gnu binutils-aarch64-linux-gnu \
 	wget \
         man \
         git \
@@ -114,17 +113,6 @@ RUN locale-gen en_US.UTF-8
 # NOTE: luaposix installed by rocks due to Ubuntu bug: #1752082 https://bugs.launchpad.net/ubuntu/+source/lua-posix/+bug/1752082
 RUN luarocks install luaposix
 
-# Install caliper by hand for now
-WORKDIR /opt/caliper
-RUN wget -O - https://github.com/LLNL/Caliper/archive/v1.7.0.tar.gz | tar xvz --strip-components 1 && \
-    mkdir build && \
-    cd build && \
-    CC=gcc CXX=g++ cmake .. -DCMAKE_INSTALL_PREFIX=/usr && \
-    make -j 4 && \
-    make install && \
-    cd ../.. && \
-    rm -rf caliper
-
 # Install openpmix, prrte
 WORKDIR /opt/prrte
 RUN git clone https://github.com/openpmix/openpmix.git && \
@@ -190,8 +178,7 @@ RUN git clone https://github.com/flux-framework/flux-core && \
     ./configure --prefix=/usr --sysconfdir=/etc \
         --with-systemdsystemunitdir=/etc/systemd/system \
         --localstatedir=/var \
-        --with-flux-security \
-        --enable-caliper && \
+        --with-flux-security && \
     make clean && \
     make && \
     sudo make install
@@ -216,8 +203,7 @@ RUN git clone --depth 1 https://github.com/flux-framework/flux-sched && \
     ./configure --prefix=/usr --sysconfdir=/etc \
        --with-systemdsystemunitdir=/etc/systemd/system \
        --localstatedir=/var \
-       --with-flux-security \
-       --enable-caliper && \
+       --with-flux-security && \
     make && \
     sudo make install
 

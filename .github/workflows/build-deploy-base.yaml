@@ -1,16 +1,16 @@
-name: flux-arm complete build
+name: flux-arm build-deploy-base
 on:
   # This must be triggered manually
   workflow_dispatch:
-
-  # If you dare test for a PR
-  # This will take ~4 hours 25 minutes
+  
+  # Uncomment this if you want to test on a pull request
+  # This will take about an hour + 30 minutes
   # pull_request: []
 
 # This is for base containers
 # This installs up to pmix, but no flux stuff
 env:
-  container: ghcr.io/rse-ops/flux-arm-complete
+  container: ghcr.io/rse-ops/flux-arm-base
 
 jobs:
   build:
@@ -59,7 +59,7 @@ jobs:
         id: build
         uses: docker/build-push-action@v3
         with:
-          file: Dockerfile
+          file: Dockerfile.base
           push: ${{ github.event_name != 'pull_request' }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

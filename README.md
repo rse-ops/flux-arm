@@ -9,7 +9,7 @@ These images are _incredibly slow_ to build on GitHub actions, so we have a mult
 building strategy:
 
 
- - [build-deploy-base.yaml](build-deploy-base.yaml) uses [Dockerfile.base](Dockerfile.base) to build up openpmix and prrte. (takes appoximately 1 hour 25-30 minutes)
+ - [build-deploy-base.yaml](build-deploy-base.yaml) uses [Dockerfile.base](Dockerfile.base) to build up openpmix and prrte. (takes appoximately 1 hour 25-37 minutes)
  - **build-deploy-flux-security** (TBA)
  - **build-deploy-flux-sched** (TBA)
  - **build-deploy-flux-core** (TBA)

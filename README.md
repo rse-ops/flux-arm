@@ -12,7 +12,7 @@ building strategy:
  1. [build-deploy-base](.github/workflows/build-deploy-base.yaml) uses [Dockerfile.base](Dockerfile.base) to build up openpmix and prrte. (takes appoximately 1 hour 25-37 minutes)
  2. [build-deploy-flux-security](.github/workflows/build-deploy-flux-security.yaml) uses [Dockerfile.flux-security](Dockerfile.flux-security) to add Flux Security to the base image (1) (only takes 5 minutes)
  3. [build-deploy-flux-core](.github/workflows/build-deploy-flux-core.yaml) uses [Dockerfile.flux-core](Dockerfile.flux-core) to add Flux Core to (2). (takes approximately 1 hour 30-40 minutes)
- 4. [build-deploy-flux-sched](.github/workflows/build-deploy-flux-sched.yaml) adds Flux Sched on top of Flux core via the [Dockerfile.flux-sched](Dockerfile.flux-sched)
+ 4. [build-deploy-flux-sched](.github/workflows/build-deploy-flux-sched.yaml) adds Flux Sched on top of Flux core via the [Dockerfile.flux-sched](Dockerfile.flux-sched) (takes approximately 52 to 1 hour 22 minutes)
 
 
 And if you want a "all in one" build, although we don't use GitHub actions (it takes a LONG time) you can use:

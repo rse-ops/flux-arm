@@ -4,7 +4,8 @@ on:
   workflow_dispatch:
   
   # Uncomment this if you want to test on a pull request
-  pull_request: []
+  # This only takes 5 minutes
+  # pull_request: []
 
 # This is for base containers
 # This installs up to pmix, but no flux stuff

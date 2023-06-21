@@ -1,0 +1,70 @@
+name: flux-arm build-deploy-flux-core
+on:
+  # This must be triggered manually
+  workflow_dispatch:
+  
+  # Uncomment this if you want to test on a pull request
+  # This only takes 5 minutes
+  pull_request: []
+
+# This is for base containers
+# This installs up to pmix, but no flux stuff
+env:
+  container: ghcr.io/rse-ops/flux-arm-core
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - [linux/arm64/v8, armv8]
+          - [linux/arm64, arm64]
+          - [linux/ppc64le, ppc64le]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.container }}
+
+      - name: Make Space For Build
+        run: |
+         sudo rm -rf /usr/share/dotnet
+         sudo rm -rf /opt/ghc
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: ${{ matrix.platform[0] }}
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Login GitHub packages
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        id: build
+        uses: docker/build-push-action@v3
+        with:
+          file: Dockerfile.flux-core
+          push: ${{ github.event_name != 'pull_request' }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          platforms: ${{ matrix.platform[0] }}
+          build-args: |
+            tag=${{ matrix.platform[1] }}
+          tags: |
+            ${{ env.container }}:${{ matrix.platform[1] }}

@@ -63,7 +63,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           platforms: ${{ matrix.platform[0] }}
-          build_args: |
+          build-args: |
             tag=${{ matrix.platform[1] }}
           tags: |
             ${{ env.container }}:${{ matrix.platform[1] }}

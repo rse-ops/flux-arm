@@ -1,0 +1,37 @@
+ARG tag
+FROM ghcr.io/rse-ops/flux-arm-base:${tag}
+
+# This is from the docker check script (run interactively during a test)
+# https://github.com/flux-framework/flux-core/blob/master/src/test/docker/checks/Dockerfile
+ARG USER=fluxuser
+ARG UID=1000
+ARG GID=1000
+ARG FLUX_SECURITY_VERSION=0.9.0
+
+# Install flux-security by hand for now:
+#
+WORKDIR /opt
+RUN CCACHE_DISABLE=1 && \
+    V=$FLUX_SECURITY_VERSION && \
+    PKG=flux-security-$V && \
+    URL=https://github.com/flux-framework/flux-security/releases/download && \
+    wget ${URL}/v${V}/${PKG}.tar.gz && \
+    tar xvfz ${PKG}.tar.gz && \
+    cd ${PKG} && \
+    ./configure --prefix=/usr --sysconfdir=/etc && \
+    make -j 4 && \
+    sudo make install && \
+    cd .. && \
+    ldconfig
+
+# Add configured user to image with sudo access:
+#
+RUN set -x && groupadd -g $UID $USER && \
+    useradd -g $USER -u $UID -d /home/$USER -m $USER && \
+    printf "$USER ALL= NOPASSWD: ALL\\n" >> /etc/sudoers
+
+# Setup MUNGE directories & key
+RUN mkdir -p /var/run/munge && \
+    dd if=/dev/urandom bs=1 count=1024 > /etc/munge/munge.key && \
+    chown -R munge /etc/munge/munge.key /var/run/munge && \
+    chmod 600 /etc/munge/munge.key

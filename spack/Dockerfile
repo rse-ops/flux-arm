@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV SPACK_ROOT=/opt/spack-environment/spack
 
 # See https://github.com/spack/spack/issues/19653
-ARG spack_cpu_arch=graviton
+ARG spack_cpu_arch=aarch64
 
 RUN apt-get update && \
     apt-get -y install \

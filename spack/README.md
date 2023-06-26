@@ -78,7 +78,7 @@ $ docker buildx build --platform linux/arm64 --tag ghcr.io/rse-ops/flux-arm-spac
 At this point you can tag for the date too, and push both (you'll need to add credentials to the instance)
 
 ```bash
-docker tag ghcr.io/rse-ops/flux-arm-spack:arm64 ghcr.io/rse-ops/flux-arm-spack:june-2023-arm64
+docker tag ghcr.io/rse-ops/flux-arm-spack:arm64 ghcr.io/rse-ops/flux-arm-spack:spack-0.20.0
 docker push ghcr.io/rse-ops/flux-arm-spack --all-tags
 ```
 
@@ -92,7 +92,7 @@ $ docker buildx build -f Dockerfile.lammps --platform linux/arm64 --tag ghcr.io/
 Also tag and push!
 
 ```bash
-docker tag ghcr.io/rse-ops/flux-arm-lammps:arm64 ghcr.io/rse-ops/flux-arm-lammps:june-2023-arm64
+docker tag ghcr.io/rse-ops/flux-arm-lammps:arm64 ghcr.io/rse-ops/flux-arm-lammps:spack-0.20.0
 docker push ghcr.io/rse-ops/flux-arm-lammps --all-tags
 ```
 

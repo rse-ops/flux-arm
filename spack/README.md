@@ -40,7 +40,7 @@ ssh -o 'IdentitiesOnly yes' -i path-to-key.pem ec2-user@ec2-52-55-54-40.compute-
 And then install docker and update:
 
 ```bash
-sudo yum update
+sudo yum update -y
 sudo yum install -y docker
 sudo systemctl start docker
 sudo usermod -aG docker $USER

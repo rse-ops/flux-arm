@@ -63,7 +63,7 @@ Clone the repository:
 
 ```bash
 sudo yum install -y git
-git clone -b add/spack https://github.com/rse-ops/flux-arm
+git clone https://github.com/rse-ops/flux-arm
 cd flux-arm/spack
 ```
 
@@ -76,7 +76,7 @@ $ docker buildx build --platform linux/arm64 --tag ghcr.io/rse-ops/flux-arm-spac
 At this point you can tag for the date too, and push both (you'll need to add credentials to the instance)
 
 ```bash
-docker tag ghcr.io/rse-ops/flux-arm-spack:arm64 ghcr.io/rse-ops/flux-arm-spack:spack-0.20.0
+docker tag ghcr.io/rse-ops/flux-arm-spack:arm64 ghcr.io/rse-ops/flux-arm-spack:spack-0.19.0
 docker push ghcr.io/rse-ops/flux-arm-spack --all-tags
 ```
 
@@ -90,8 +90,13 @@ $ docker buildx build -f Dockerfile.lammps --platform linux/arm64 --tag ghcr.io/
 Also tag and push!
 
 ```bash
-docker tag ghcr.io/rse-ops/flux-arm-lammps:arm64 ghcr.io/rse-ops/flux-arm-lammps:spack-0.20.0
+docker tag ghcr.io/rse-ops/flux-arm-lammps:arm64 ghcr.io/rse-ops/flux-arm-lammps:spack-0.19.0
 docker push ghcr.io/rse-ops/flux-arm-lammps --all-tags
 ```
 
 And that's it! You can exit and delete the instance. That was SO FAST.
+
+Notes about the following tags:
+
+ - flux-arm-spack:spack-0.20.0 / July 14th build did not work (an MPI PMIX error)
+ - July 15th build reverted to spack 0.19 and tried to add new libfabrics.

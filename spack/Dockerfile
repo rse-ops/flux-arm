@@ -61,12 +61,14 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  view: /opt/view") > /opt/spack-environment/spack.yaml
 
 # Install the software, remove unnecessary deps
-# Note that spack 0.20.0 comes with libfabric 1.18.0, so not too far off
 RUN cd /opt/spack-environment \
-    && git clone --single-branch --branch v0.20.0 https://github.com/spack/spack.git \
-    && rm ./spack/var/spack/repos/builtin/packages/libfabric/package.py \
-    && wget -O ./spack/var/spack/repos/builtin/packages/libfabric/package.py https://raw.githubusercontent.com/spack/spack/11bc27d984a1008f254abf6690c2d96c418b0c42/var/spack/repos/builtin/packages/libfabric/package.py \
-    && . spack/share/spack/setup-env.sh \
+    && git clone --single-branch --branch v0.19.0 https://github.com/spack/spack.git \
+    && rm ./spack/var/spack/repos/builtin/packages/libfabric/package.py
+
+# We have to edit this to remove maintainers - not supported in older spack
+COPY ./package.py /opt/spack-environment/spack/var/spack/repos/builtin/packages/libfabric/package.py
+RUN cd /opt/spack-environment \
+    &&  . spack/share/spack/setup-env.sh \
     && spack env activate . \
     && spack external find openssh \
     && spack external find cmake \

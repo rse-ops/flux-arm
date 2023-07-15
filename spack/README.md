@@ -1,7 +1,6 @@
 # Spack
 
-We will be doing this from the command line. The AMI we want is `ami-012fb2a3ce1880d5d`. Note that
-the prices range from $1.60 - $1.80 an hour, so about $38-$43 dollars a day.
+We will be doing this from the command line. The AMI we want is `ami-012fb2a3ce1880d5d`. Note that the prices range from $1.60 - $1.80 an hour, so about $38-$43 dollars a day.
 
 ```bash
 aws ec2 describe-instance-type-offerings --location-type availability-zone --filters Name=instance-type,Values=hpc7g.* --region us-east-1 --query InstanceTypeOfferings[*].[InstanceType,Location]
@@ -53,8 +52,7 @@ At this point give it a test!
 docker run hello-world
 ```
 
-If that works, we are good to build here. Let's run this in a screen because we can expect our credential
-to expire or otherwise get kicked off.
+If that works, we are good to build here. Let's run this in a screen because we can expect our credential to expire or otherwise get kicked off.
 
 ```bash
 sudo yum install -y screen

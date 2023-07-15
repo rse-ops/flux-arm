@@ -51,7 +51,7 @@ RUN mkdir /opt/spack-environment \
     &&  (echo "spack:" \
     &&   echo "  specs:" \
     &&   echo "  - openmpi@4.1.2 fabrics=ofi +legacylaunchers target=${spack_cpu_arch}" \
-    &&   echo "  - libfabric@1.14.0 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm target=${spack_cpu_arch}" \
+    &&   echo "  - libfabric@1.18.1 fabrics=efa,tcp,udp,sockets,verbs,shm,mrail,rxd,rxm target=${spack_cpu_arch}" \
     &&   echo "  - flux-sched target=${spack_cpu_arch}" \
     &&   echo "  - flux-pmix target=${spack_cpu_arch}" \
     &&   echo "  concretizer:" \
@@ -61,8 +61,11 @@ RUN mkdir /opt/spack-environment \
     &&   echo "  view: /opt/view") > /opt/spack-environment/spack.yaml
 
 # Install the software, remove unnecessary deps
+# Note that spack 0.20.0 comes with libfabric 1.18.0, so not too far off
 RUN cd /opt/spack-environment \
     && git clone --single-branch --branch v0.20.0 https://github.com/spack/spack.git \
+    && rm ./spack/var/spack/repos/builtin/packages/libfabric/package.py \
+    && wget -O ./spack/var/spack/repos/builtin/packages/libfabric/package.py https://raw.githubusercontent.com/spack/spack/11bc27d984a1008f254abf6690c2d96c418b0c42/var/spack/repos/builtin/packages/libfabric/package.py \
     && . spack/share/spack/setup-env.sh \
     && spack env activate . \
     && spack external find openssh \
